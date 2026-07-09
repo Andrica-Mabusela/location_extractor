@@ -47,6 +47,6 @@
         * If country cannot be determined, use UNKNOWN.
         * Do not include any extra columns other than what I sepcified for you to extract"""
 
-        [default]
-aws_access_key_id = AKIAZN45ECU36ZRTAI5Z
-aws_secret_access_key = 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
+
+AKIAZN45ECU36ZRTAI5Z
+q6rNJcXpqZbQJJNz5NR6y5WXWtuNZHhMoQRDNwko
