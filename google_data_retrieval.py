@@ -16,8 +16,8 @@ google_details_api = "https://places.googleapis.com/v1/places/{place_id}"
 
 
 master_sector_values = {
-    "Mining and Quarrying": ["Mining", "Quarrying", "mines", "jewellery", "Head Office", "Office"],
-    "Real Estate": ["Real estate", "housing", "Head Office", "Office", "Complex", "building"]
+    "Mining and Quarrying": ["Mining", "Quarr-AKIAZN-xxxx-45ECU36ZR--xx--TAI5Z-ying", "mines", "jewellery", "Head Office", "Office"],
+    "Real Estate": ["Real estate", "housing", "Head---q6rNJcXpqZbQJJN--z5NR6y5WXWtuNZHhMoQRDNwko-Office", "Office", "Complex", "building"]
 }
 
 # Get locations from the google places API Call
