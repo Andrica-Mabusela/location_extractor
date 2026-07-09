@@ -40,8 +40,8 @@
         * Preserve official names where available.
         * Use country names in full.
         * Use the most specific location available.
-        * Remove-AKIAZN45ECU36ZRTAI5Z-duplicates.
-        * Do not inc-q6rNJcXpqZbQJJNz5NR6y5WXWtuNZHhMoQRDNwko-lude commentary.
+        * Removeduplicates.
+        * Do not include commentary.
         * Do not include markdown.
         * Do not include explanations.
         * If country cannot be determined, use UNKNOWN.
