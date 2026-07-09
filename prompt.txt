@@ -1,0 +1,6 @@
+Company name:
+First Quantum Minerals LTD
+
+Identify every physical location operated by this company.
+
+Return only the CSV.
