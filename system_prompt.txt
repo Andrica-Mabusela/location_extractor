@@ -40,13 +40,12 @@
         * Preserve official names where available.
         * Use country names in full.
         * Use the most specific location available.
-        * Remove duplicates.
-        * Do not include commentary.
+        * Remove-AKIAZN45ECU36ZRTAI5Z-duplicates.
+        * Do not inc-q6rNJcXpqZbQJJNz5NR6y5WXWtuNZHhMoQRDNwko-lude commentary.
         * Do not include markdown.
         * Do not include explanations.
         * If country cannot be determined, use UNKNOWN.
         * Do not include any extra columns other than what I sepcified for you to extract"""
 
 
-AKIAZN45ECU36ZRTAI5Z
-q6rNJcXpqZbQJJNz5NR6y5WXWtuNZHhMoQRDNwko
+
