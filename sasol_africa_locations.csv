@@ -1,0 +1,21 @@
+customer_name,location,street_address,country,lattitude,longitude,type_of_operation
+Sasol Africa,Johannesburg,"Sasolburg, Gauteng",South Africa,-26.2041,28.0473,Head office
+Sasol Africa,Sandton,"12 Fredman Drive, Sandton, Gauteng",South Africa,-26.1096,28.0469,Corporate office
+Sasol Africa,Secunda,"Secunda, Mpumalanga",South Africa,-26.5449,29.4714,Operational site
+Sasol Africa,Sasolburg,"Sasolburg, Gauteng",South Africa,-26.9833,27.9333,Operational site
+Sasol Africa,Lake Charles,"100 Sasol Way, Lake Charles, Louisiana",United States,30.1917,-93.2001,Manufacturing plant
+Sasol Africa,Geismar,"1 Sasol Drive, Geismar, Louisiana",United States,30.1069,-90.9487,Manufacturing plant
+Sasol Africa,Hamburg,"Bahrenfeld, Hamburg",Germany,53.5586,9.9278,Research facility
+Sasol Africa,Dordrecht,"Dordrecht, South Holland",Netherlands,51.7864,4.6725,Operational site
+Sasol Africa,Saldanha,"Saldanha, Western Cape",South Africa,-33.0267,18.0000,Operational site
+Sasol Africa,Secunda,"Secunda, Mpumalanga",South Africa,-26.5449,29.4714,Gas to liquids plant
+Sasol Africa,Sasolburg,"Sasolburg, Gauteng",South Africa,-26.9833,27.9333,Chemical manufacturing plant
+Sasol Africa,Johannesburg,"Sasol House, 12 Fredman Drive, Sandton, Gauteng",South Africa,-26.1096,28.0469,Corporate office
+Sasol Africa,Secunda,"Secunda, Mpumalanga",South Africa,-26.5449,29.4714,Synfuels plant
+Sasol Africa,Sasolburg,"Sasolburg, Gauteng",South Africa,-26.9833,27.9333,Chemicals plant
+Sasol Africa,Lake Charles,"100 Sasol Way, Lake Charles, Louisiana",United States,30.1917,-93.2001,Chemical manufacturing plant
+Sasol Africa,Geismar,"1 Sasol Drive, Geismar, Louisiana",United States,30.1069,-90.9487,Chemical manufacturing plant
+Sasol Africa,Secunda,"Secunda, Mpumalanga",South Africa,-26.5449,29.4714,Chemical manufacturing plant
+Sasol Africa,Sasolburg,"Sasolburg, Gauteng",South Africa,-26.9833,27.9333,Chemical manufacturing plant
+Sasol Africa,Secunda,"Secunda, Mpumalanga",South Africa,-26.5449,29.4714,Chemical manufacturing plant
+Sasol Africa,Sasolburg,"Sasolburg, Gauteng",South Africa,-26.9833,27.9333,Chemical manufacturing plant
