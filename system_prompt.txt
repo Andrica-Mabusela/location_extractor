@@ -46,6 +46,3 @@
         * Do not include explanations.
         * If country cannot be determined, use UNKNOWN.
         * Do not include any extra columns other than what I sepcified for you to extract"""
-
-
-
