@@ -9,18 +9,36 @@ from crawl4ai.deep_crawling.filters import (
     ContentTypeFilter
 )
 from crawl4ai.deep_crawling.scorers import KeywordRelevanceScorer
+import boto3
+import time
+import argparse
+import sys
+import re
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--website_url", required=True)
+parser.add_argument("--customer_name", required=True)
+args = parser.parse_args()
+
+print(f"customer name: {args.customer_name}, website url: {args.website_url}")  # Website Url
+
+
+def replace_spaces(text):
+    return re.sub(r"\s+", "_", text)
+
+# sys.exit()
 
 async def run_advanced_crawler():
     # Create a sophisticated filter chain
     filter_chain = FilterChain([
         # Domain boundaries
         DomainFilter(
-            allowed_domains=["first-quantum.com"]
+            allowed_domains=[args.website_url]
             # blocked_domains=["old.docs.example.com"]
         ),
 
         # URL patterns to include
-        URLPatternFilter(patterns=["*operations*", "*what-we-do*", "*about*", "*operation*", "*location*", "*operate*"]),
+        URLPatternFilter(patterns=["*operations*", "*what-we-do*", "*about*", "*operation*","*countries*", "*country*","*location*", "*operate*"]),
 
         # Content type filtering
         ContentTypeFilter(allowed_types=["text/html"])
@@ -28,7 +46,7 @@ async def run_advanced_crawler():
 
     # Create a relevance scorer
     keyword_scorer = KeywordRelevanceScorer(
-        keywords=["operations", "what-we-do", "locations","operation", "operate", "about"],
+        keywords=["operations", "what-we-do", "locations","operation", "countries", "about", "country", "operate"],
         weight=0.7
     )
 
@@ -49,7 +67,7 @@ async def run_advanced_crawler():
     results = []
     results_urls = []
     async with AsyncWebCrawler() as crawler:
-        async for result in await crawler.arun("https://www.first-quantum.com", config=config):
+        async for result in await crawler.arun(args.website_url, config=config):
             results.append(result)
             results_urls.append(result.url)
             score = result.metadata.get("score", 0)
@@ -64,12 +82,16 @@ async def run_advanced_crawler():
     # Group by depth
     depth_counts = {}
     for result in results:
-        with open("./first_quantum_scraped.md", "a", encoding="utf-8") as f:
+        file_name = replace_spaces(args.customer_name)
+        with open(f"./data/{file_name}.md", "a", encoding="utf-8") as f:
             f.write(result.markdown)
-
 
         depth = result.metadata.get("depth", 0)
         depth_counts[depth] = depth_counts.get(depth, 0) + 1
+    
+    time.sleep(3)
+    s3 = boto3.client('s3')
+    s3.upload_file(f"./data/{file_name}.md", 'locations-source-data', f"md_files/{file_name}.md")
 
     print("Pages crawled by depth:")
     for depth, count in sorted(depth_counts.items()):

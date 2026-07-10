@@ -16,8 +16,8 @@ google_details_api = "https://places.googleapis.com/v1/places/{place_id}"
 
 
 master_sector_values = {
-    "Mining and Quarrying": ["Mining", "Quarr-AKIAZN-xxxx-45ECU36ZR--xx--TAI5Z-ying", "mines", "jewellery", "Head Office", "Office"],
-    "Real Estate": ["Real estate", "housing", "Head---q6rNJcXpqZbQJJN--z5NR6y5WXWtuNZHhMoQRDNwko-Office", "Office", "Complex", "building"]
+    "Mining and Quarrying": ["Mining", "Quarrying", "mines", "jewellery", "Head Office", "Office"],
+    "Real Estate": ["Real estate", "housing", "Head Office", "Office", "Complex", "building"]
 }
 
 # Get locations from the google places API Call
@@ -79,7 +79,7 @@ def deduplicate_places(places: list[dict]) -> list[dict]:
     return deduplicated
 
 
-search_terms = get_different_search_terms("exxaro", "Mining and Quarrying", ["ZA"])
+search_terms = get_different_search_terms("PARETO LIMITED", "Real Estate", ["ZA"])
 retrieved_locations_from_search_terms = locations_google_places(search_terms)
 
 print(len(retrieved_locations_from_search_terms))

@@ -30,60 +30,101 @@ logger = logging.getLogger(__name__)
 # Config
 DEFAULT_MODEL_ID = "amazon.nova-pro-v1:0"
 DEFAULT_REGION = "us-east-1"  # change to your Bedrock-enabled region
-
+BUCKET_NAME = "locations-source-data"
 EXPECTED_COLUMNS = ['customer_name','address','country','type_of_operation']
 
 
-def build_grounded_prompt(customer_name: str, website_url: str) -> str:
-    """
-    Builds the grounded extraction prompt for a given customer name and website.
-    """
-    prompt = f"""You are a research specialist in Geospatial area.
-        TASK 
-        Given the customer name "{customer_name}", identify all physical locations associated with the customer, their website is "{website_url}, crawl the {customer_name} to find the physical location addresses".
-        A physical addresses includes:
 
-        * Head offices
-        * Corporate offices
-        * Regional offices
-        * Branches
-        * Stores
-        * Warehouses"
-        * Distribution centres
-        * Manufacturing plants
-        * Factories
-        * Mines
-        * Processing plants
-        * Smelters
-        * Refineries
-        * Operational sites
-        * Depots
-        * Research facilities
-        For each physical address, extract:
+# GET FILE FROM S3
+def fetch_s3_file_content(bucket: str, key: str, region_name: str = DEFAULT_REGION) -> str:
+    s3 = boto3.client("s3", region_name=region_name)
+    response = s3.get_object(Bucket=bucket, Key=key)
+    content = response["Body"].read().decode("utf-8")
+    return content
 
-        1. customer_name
-        2. address
-        3. country
-        4. type_of_operation
 
-        OUTPUT REQUIREMENTS:
-        Return ONLY CSV format.
-        Columns must be:
-        'customer_name','address','country','type_of_operation'
-        Rules:
 
-        * One location per row.
-        * Do not aggregate multiple locations into a single row.
-        * Preserve official names where available.
-        * Use country names in full.
-        * Use the most specific location available.
-        * Remove duplicates.
-        * Do not include commentary.
-        * Do not include markdown.
-        * Do not include explanations.
-        * If country cannot be determined, use UNKNOWN.
-        * Do not include any extra columns other than what I sepcified for you to extract"""
+
+
+def build_grounded_prompt(customer_name: str, website_url: str, source_document: str = "") -> str:
+    
+    # Read Content of the System prompt
+    with open("system_prompt_crawl.txt", "r", encoding="utf-8") as f:
+        system_prompt_content = f.read()
+
+    print(system_prompt_content)
+    
+    document_section = ""
+    if source_document:
+        document_section = f"""
+        SOURCE DOCUMENT (use this as your primary knowledge source):
+        ---
+        {source_document}
+        ---
+        """
+
+    prompt = f"""{system_prompt_content}.
+        {document_section}
+        
+        Company name:
+        {customer_name}
+
+        Identify every physical location operated by this company.
+
+        Return only the CSV.
+        """
     return prompt
+
+# def build_grounded_prompt(customer_name: str, website_url: str) -> str:
+#     """
+#     Builds the grounded extraction prompt for a given customer name and website.
+#     """
+#     prompt = f"""You are a research specialist in Geospatial area.
+#         TASK 
+#         Given the customer name "{customer_name}", identify all physical locations associated with the customer, their website is "{website_url}, crawl the {customer_name} to find the physical location addresses".
+#         A physical addresses includes:
+
+#         * Head offices
+#         * Corporate offices
+#         * Regional offices
+#         * Branches
+#         * Stores
+#         * Warehouses"
+#         * Distribution centres
+#         * Manufacturing plants
+#         * Factories
+#         * Mines
+#         * Processing plants
+#         * Smelters
+#         * Refineries
+#         * Operational sites
+#         * Depots
+#         * Research facilities
+#         For each physical address, extract:
+
+#         1. customer_name
+#         2. address
+#         3. country
+#         4. type_of_operation
+
+#         OUTPUT REQUIREMENTS:
+#         Return ONLY CSV format.
+#         Columns must be:
+#         'customer_name','address','country','type_of_operation'
+#         Rules:
+
+#         * One location per row.
+#         * Do not aggregate multiple locations into a single row.
+#         * Preserve official names where available.
+#         * Use country names in full.
+#         * Use the most specific location available.
+#         * Remove duplicates.
+#         * Do not include commentary.
+#         * Do not include markdown.
+#         * Do not include explanations.
+#         * If country cannot be determined, use UNKNOWN.
+#         * Do not include any extra columns other than what I sepcified for you to extract"""
+#     return prompt
 
 
 def query_bedrock_nova(
@@ -95,6 +136,8 @@ def query_bedrock_nova(
     temperature: float = 0.1,  # Temperature will control how random or creative the output is.
     top_p: float = 0.9,  # This is called Nucleus sampling, Instead of always considering every possible next token, the model only considers the smallest set of tokens whose cumulative probability reaches p.
     bedrock_client: Optional[boto3.client] = None,
+    s3_bucket: Optional[str] = None,
+    s3_key: Optional[str] = None,
 ) -> str:
     """
     Sends the grounded prompt to the Bedrock Nova Pro model and returns the
@@ -103,8 +146,14 @@ def query_bedrock_nova(
     Uses the Bedrock Converse API, which Nova models support natively.
     """
     client = bedrock_client or boto3.client("bedrock-runtime", region_name=region_name)
+    
+    source_document = ""
+    if s3_bucket and s3_key:
+        source_document = fetch_s3_file_content(BUCKET_NAME, "PARETO_LIMITED.md", region_name)
 
-    prompt = build_grounded_prompt(customer_name, website_url)
+    prompt = build_grounded_prompt(customer_name, website_url, source_document)
+
+    # prompt = build_grounded_prompt(customer_name, website_url)
 
     logger.info("Querying %s for locations of '%s'", model_id, customer_name)
 
@@ -232,12 +281,17 @@ if __name__ == "__main__":
         companies = list(reader)
 
     all_rows = []
-    for company in companies:
-        rows = extract_locations_to_csv_file(
-            customer_name=company["customer_name"],
-            website_url=company["website_url"],
-            output_path=f"customer_locations/{company['customer_name'].replace(' ', '_')}_locations.csv",
+    # for company in companies:
+    #     rows = extract_locations_to_csv_file(
+    #         customer_name=company["customer_name"],
+    #         website_url=company["website_url"],
+    #         output_path=f"customer_locations/{company['customer_name'].replace(' ', '_')}_locations.csv",
+    #     )
+    #     all_rows.extend(rows)
+    rows = extract_locations_to_csv_file(
+            customer_name="PARETO LIMITED",
+            website_url="https://www.pareto.co.za",
+            output_path=f"customer_locations/{"PARETO LIMITED".replace(' ', '_')}_locations.csv",
         )
-        all_rows.extend(rows)
 
     logger.info("Total locations extracted across all companies: %d", len(all_rows))
