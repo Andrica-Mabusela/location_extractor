@@ -23,6 +23,7 @@ args = parser.parse_args()
 print(f"customer name: {args.customer_name}, website url: {args.website_url}")  # Website Url
 
 
+# Replace Spaces with _
 def replace_spaces(text):
     return re.sub(r"\s+", "_", text)
 

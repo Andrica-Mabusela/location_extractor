@@ -60,7 +60,7 @@ Return ONLY pipe-delimited CSV.
 
 Header:
 
-customer_name|location|country|type_of_operation|latitude|longitude
+customer_name|location|country|type_of_operation
 
 Where
 
@@ -140,7 +140,7 @@ If the exact operation type cannot be determined but a physical site clearly exi
 
 Do not use your static training data.
 
-Rely solely on the data in the attached .md file
+Rely solely on the data in the `SOURCE DOCUMENT (use this as your primary knowledge source)` section of prompt:
 
 Then google places data.
 
@@ -176,7 +176,7 @@ Do not output code fences.
 
 ## EXAMPLE
 
-customer_name|location|country|type_of_operation|latitude|longitude
-Example Company|Johannesburg, Gauteng|South Africa|Head Office|-6.3500|-79.1167
-Example Company|Durban, KwaZulu-Natal|South Africa|Warehouse|-8.3500|-79.1167
-Example Company|Cape Town, Western Cape|South Africa|Branch|-10.3500|-79.1167
+customer_name|location|country|type_of_operation
+Example Company|Johannesburg, Gauteng|South Africa|Head Office
+Example Company|Durban, KwaZulu-Natal|South Africa|Warehouse
+Example Company|Cape Town, Western Cape|South Africa|Branch

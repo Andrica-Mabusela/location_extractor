@@ -20,6 +20,10 @@ import io
 import logging
 from typing import Optional
 import sys
+from colorama import init, Fore, Style
+
+
+init(autoreset=True)
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
@@ -28,10 +32,12 @@ logger = logging.getLogger(__name__)
 
 
 # Config
-DEFAULT_MODEL_ID = "amazon.nova-pro-v1:0"
+# DEFAULT_MODEL_ID = "amazon.nova-pro-v1:0"
+# DEFAULT_MODEL_ID = "amazon.nova-2-lite-v1:0"
+DEFAULT_MODEL_ID = "us.amazon.nova-2-lite-v1:0"  # for US region access
 DEFAULT_REGION = "us-east-1"  # change to your Bedrock-enabled region
 BUCKET_NAME = "locations-source-data"
-EXPECTED_COLUMNS = ['customer_name','address','country','type_of_operation']
+EXPECTED_COLUMNS = ['customer_name','location','country','type_of_operation']
 
 
 
@@ -130,26 +136,31 @@ def build_grounded_prompt(customer_name: str, website_url: str, source_document:
 def query_bedrock_nova(
     customer_name: str,
     website_url: str,
+    s3_bucket: str,
+    s3_key: str,
     model_id: str = DEFAULT_MODEL_ID,
     region_name: str = DEFAULT_REGION,
     max_tokens: int = 512,  # The maximum number of tokens the model is allowed to generate in it's response
     temperature: float = 0.1,  # Temperature will control how random or creative the output is.
     top_p: float = 0.9,  # This is called Nucleus sampling, Instead of always considering every possible next token, the model only considers the smallest set of tokens whose cumulative probability reaches p.
     bedrock_client: Optional[boto3.client] = None,
-    s3_bucket: Optional[str] = None,
-    s3_key: Optional[str] = None,
 ) -> str:
     """
     Sends the grounded prompt to the Bedrock Nova Pro model and returns the
     raw text response (expected to be CSV).
-
+        
     Uses the Bedrock Converse API, which Nova models support natively.
     """
     client = bedrock_client or boto3.client("bedrock-runtime", region_name=region_name)
     
     source_document = ""
+    print(Fore.GREEN + s3_bucket)
+    print(Fore.GREEN + s3_key)
     if s3_bucket and s3_key:
-        source_document = fetch_s3_file_content(BUCKET_NAME, "PARETO_LIMITED.md", region_name)
+        source_document = fetch_s3_file_content(s3_bucket, s3_key, region_name)
+        print(Fore.GREEN + "-----------------------------------------START PRINT SOURCE DOCUMENT CONTENT--------------------------------")
+        print(Fore.GREEN + source_document)
+        print(Fore.GREEN + "-----------------------------------------------END PRINT SOURCE DOCUMENT CONTENT-----------------------------------")
 
     prompt = build_grounded_prompt(customer_name, website_url, source_document)
 
@@ -252,6 +263,8 @@ def extract_locations_to_csv_file(
     raw_text = query_bedrock_nova(
         customer_name=customer_name,
         website_url=website_url,
+        s3_bucket=BUCKET_NAME,
+        s3_key="md_files/ENEL_GREEN_POWER_RSA_2_(RF)_(PTY)_LTD.md",
         model_id=model_id,
         region_name=region_name,
     )
@@ -276,22 +289,22 @@ def extract_locations_to_csv_file(
 
 if __name__ == "__main__":
 
-    with open("customers.csv", mode="r", encoding="utf-8", newline="") as file:
+    with open("20_customers_with_website.csv", mode="r", encoding="utf-8", newline="") as file:
         reader = csv.DictReader(file, delimiter="|")
         companies = list(reader)
 
     all_rows = []
-    # for company in companies:
-    #     rows = extract_locations_to_csv_file(
-    #         customer_name=company["customer_name"],
-    #         website_url=company["website_url"],
-    #         output_path=f"customer_locations/{company['customer_name'].replace(' ', '_')}_locations.csv",
-    #     )
-    #     all_rows.extend(rows)
-    rows = extract_locations_to_csv_file(
-            customer_name="PARETO LIMITED",
-            website_url="https://www.pareto.co.za",
-            output_path=f"customer_locations/{"PARETO LIMITED".replace(' ', '_')}_locations.csv",
+    for company in companies:
+        rows = extract_locations_to_csv_file(
+            customer_name=company["customer_name"],
+            website_url=company["website_url"],
+            output_path=f"customer_locations/{company['customer_name'].replace(' ', '_')}_locations.csv",
         )
+        all_rows.extend(rows)
+    # rows = extract_locations_to_csv_file(
+    #         customer_name="ENEL GREEN POWER RSA 2 (RF) (PTY) LTD",
+    #         website_url="https://www.enelgreenpower.com",
+    #         output_path=f"customer_locations/{"ENEL GREEN POWER RSA 2 (RF) (PTY) LTD".replace(' ', '_')}_locations.csv",
+    #     )
 
     logger.info("Total locations extracted across all companies: %d", len(all_rows))

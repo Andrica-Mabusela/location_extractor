@@ -1,18 +1,186 @@
 [
-    {
-        "id": "ChIJd9LS7oaiQgERQ2uXjnI0w-g",
-        "formattedAddress": "Sandton City, 10th Floor Office, East Tower, Atrium on 5th, Rivonia Rd, Sandhurst, Sandton, 2196",
-        "displayName": {
-            "text": "PARETO",
-            "languageCode": "en"
-        }
-    },
-    {
-        "id": "ChIJkTP3iSRzlR4RobAlTdz1Lzs",
-        "formattedAddress": "150 Rivonia Rd, Sandown, Sandton, 2196",
-        "displayName": {
-            "text": "Pareto House",
-            "languageCode": "en"
-        }
+  {
+    "id": "ChIJo4VuYCYruB4R3zbu6TT8tAQ",
+    "formattedAddress": "South Africa",
+    "displayName": {
+      "text": "Tom Burke Solar Park",
+      "languageCode": "en"
     }
+  },
+  {
+    "id": "ChIJXzBuIqnLLBwRSohLIUGtvTM",
+    "formattedAddress": "South Africa",
+    "displayName": {
+      "text": "Soetwater Wind Farm",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJo0121DE30x0RRpupwjaU3Nw",
+    "formattedAddress": "South Africa",
+    "displayName": {
+      "text": "Karusa Wind Farm",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJryBK00PxHxwR1LmGuBv5IVc",
+    "formattedAddress": "South Africa",
+    "displayName": {
+      "text": "Adams Solar Plant",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJmwDaNwAXKBwRMRGLllzwZjI",
+    "formattedAddress": "R357, Copperton, 8940",
+    "displayName": {
+      "text": "Garob Windfarm",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJA_q41SVHYx4R2GRIZUW-eOE",
+    "formattedAddress": "Somerset East",
+    "displayName": {
+      "text": "Nojoli Wind Farm",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJkyVGIYZHYx4RGjnvKDi63p0",
+    "formattedAddress": "South Africa",
+    "displayName": {
+      "text": "Nxuba Windfarm",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJqwSzrNBNeh4Rr9X7izjmxF4",
+    "formattedAddress": "Unnamed Road",
+    "displayName": {
+      "text": "Oyster Bay Wind farm",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJR84umikomx4RkDnDLEg69qw",
+    "formattedAddress": "Jacobsdal",
+    "displayName": {
+      "text": "Pulida Solar Farm",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJ7a_qC_FJeh4R7v6JhqAW4tU",
+    "formattedAddress": "Humansdorp",
+    "displayName": {
+      "text": "Gibson Bay windfarm substation",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJ9XgvDd1Peh4RHa1kOYlzDak",
+    "formattedAddress": "Main Gate Gibson Bay wind farm Oyster Bay- 6300, Oyster Bay",
+    "displayName": {
+      "text": "Gibson Bay Wind Farm PTY (Ltd)",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJRcuoeoLJJhwRQ0Xfv3LXIEg",
+    "formattedAddress": "Upington",
+    "displayName": {
+      "text": "Karoshoek Solar Farm",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJv8OKf9CpJhwRbuthrHFv328",
+    "formattedAddress": "395 Gordonia road, Olyvenhouts Drift Settlement, Upington, 8801",
+    "displayName": {
+      "text": "UPINGTON MTS SUBSTATION NTCSA.",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJ2R3NwiKtJhwRSaMu6QeJNBY",
+    "formattedAddress": "3 Toekoms St, Upington, 8801",
+    "displayName": {
+      "text": "URB Solar (PTY)LTD",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJ31MYKdVSIRwRgHC04fnXYxA",
+    "formattedAddress": "13 Soutpan St, Upington, 8800",
+    "displayName": {
+      "text": "Agri Solar",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJ0ZzgL-kBJBwRtMQCRROJZ2s",
+    "formattedAddress": "Keimoes",
+    "displayName": {
+      "text": "Khi Solar One",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJ4XWGfoDJJhwR_3x-7vI_yoo",
+    "formattedAddress": "Upington",
+    "displayName": {
+      "text": "Illang Solar Plant",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJq6qqqqpTIRwRqE7jmH6INbk",
+    "formattedAddress": "16 Soutpan St, Upington, 8800",
+    "displayName": {
+      "text": "Noord-Kaap Water & Solar",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJydoIGYpTIRwR6FHQI81MESM",
+    "formattedAddress": "105 Industria St, Upington, 8801",
+    "displayName": {
+      "text": "Solar Power Space",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJo6bnl-WrJhwREljFzHdezec",
+    "formattedAddress": "South Africa",
+    "displayName": {
+      "text": "Sirius 1 Solar PV Plant",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJHz97tgWpJhwRjJ6DV3Q35P8",
+    "formattedAddress": "11B Vooruit St, Upington, 8801",
+    "displayName": {
+      "text": "Gritsol (PTY) Ltd",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJVQFdutwDJBwRKp5lEQ1xBcQ",
+    "formattedAddress": "South Africa",
+    "displayName": {
+      "text": "Dyason's Klip 1 PV Solar Plant",
+      "languageCode": "en"
+    }
+  },
+  {
+    "id": "ChIJHVv6oB8BMxwRqQoVUAk9vFs",
+    "formattedAddress": "r365",
+    "displayName": {
+      "text": "Paleisheuwel PV Solar Park",
+      "languageCode": "en"
+    }
+  }
 ]
